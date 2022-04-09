@@ -1,38 +1,123 @@
-.App {
+html, body, #root {
+  height:100%;
+}
+#root{
+  background-color:Red;
+}
+body{
+  padding:0;
+  margin: 0;
+  background-color:rgb(43, 41, 41);
+}
+#root{
+display:flex;
+flex-flow:column;
+}
+#root>div:nth-child(2){
+  flex: 1 0 auto;
+  background-color:rgb(79, 79, 79);
+}
+.header{
+  height:120px;
   text-align: center;
+  margin:0;
+  width:100%;
+  background-color:green;
+  flex: 0 0 auto;
+}
+.editSongDiv{
+  display: flex; /*this is for the page itself, (nesting flexes)*/
+  flex-flow:row;
+}
+.footer{
+  height:40px;
+  text-align:center;
+  width:100%;
+  background-color:green;
+  flex: 0 0 auto;
+}
+.header h1{
+  margin:0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.songDetails, .kalimba{
+  background-color:white;
+  border-radius:10px;
+  border: 5px solid rgb(201, 198, 198);
+  height:90%;
+  margin:auto 20px;
+  flex: 1 0 auto;
+  width:40%;
+  padding:20px;
+  box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.3);
+}
+.kalimbaControlBar{
+  display:flex;
+  flex-flow:row;
+}
+.kalimbaControlBar>*{
+  border: 1px solid black;
+  border-radius:10px;
+  padding:5px;
+  display:inline-block;
+  height:100%;
+  margin:0px 10px;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);
+}
+.kalimbaControlBar .bpmController p{
+  display:inline;
+}
+#VolumeControl{
+  flex-grow:1;
+}
+.KalimbaView{
+  background-color:rgb(201, 198, 198);
+  margin:20px;
+  border-radius:10px;
+  border: 1px solid black;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);
+  height:700px;
+  text-align:center;
+  overflow:scroll;
+ 
+}
+.Tine{
+  background-color: rgb(209, 209, 209);
+  border: 1px solid black;
+  border-radius: 0px 0px 10px 10px;
+  width:22px;
+  margin:0px 2px;
+  text-align:center;
+  display:inline-block;
+  user-select:none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Tine.painted{
+  background-color:red;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.TineStep{
+  height:20px;
 }
-
-.App-link {
-  color: #61dafb;
+.noteContainer{
+  height:20px;
+  margin: 2px 0px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.noteContainer:hover{
+  background-color:blue
+}
+.note{
+  background-color:black;
+  margin:0px 1px;
+}
+.full{
+  border-radius:50%;
+}
+.half{
+  height:10px;
+  border-radius: 150px 150px 0 0;
+}
+.quarter{
+  height: 50%;
+  width:50%;
+  border-radius: 150px 0 0 0;
 }
