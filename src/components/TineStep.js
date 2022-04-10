@@ -3,6 +3,10 @@ const TineStep = (props) => {
   const duration = props.duration;
   const toggleSound = () => {
     setBeat(props.id);
+    if (props.addSongLength){
+      console.log("trying to add length")
+      props.addSongLength();
+    }
   }
   let noteLength;
   if (duration==1){

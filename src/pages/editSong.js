@@ -152,7 +152,8 @@ const EditSong = () => {
     })
   },[])
   useEffect(()=>{
-    
+    console.log("new song")
+    console.log(song)
   },[song])
   const mapping = () => {
     return song.mapping;
@@ -160,6 +161,7 @@ const EditSong = () => {
   const setMapping =(newMapping) => {
     let newSong = {...song}
     newSong.mapping=newMapping;
+    console.log(newSong);
     setSong(newSong)
   }
   

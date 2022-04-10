@@ -22,7 +22,6 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 const KalimbaControlBar = (props) =>{
   const [bpmSpeed, setBpmSpeed] = props.bpmSpeed;
-  console.log(props)
   const [songPlaying, setSongPlaying] = props.songPlaying;
   const bpm = props.bpm
   const [song, setSong] = props.song;
@@ -41,7 +40,11 @@ const KalimbaControlBar = (props) =>{
     for(let i=0; i <= song.tines.length; i++){
       newMapping.push([])
     }
-    newMapping[newMapping.length-1].fill(1);
+    let durationIndex = newMapping.length-1;
+    let defaultSongSize = 10;
+    newMapping[durationIndex][defaultSongSize-1]=1;
+    newMapping[durationIndex] = newMapping[durationIndex].fill(1);
+    console.log(newMapping);
     setSong({
       ...song,
       mapping:newMapping,

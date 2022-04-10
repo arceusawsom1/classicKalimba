@@ -11,6 +11,8 @@ const Tine = (props) => {
     let oldRhythm = rhythm(props.id) || []
     let newDuration=0;
     if (oldRhythm[index]){
+      console.log(duration);
+      console.log("old durationn: " + duration[props.id])
       if (duration[props.id] > 0.25){
         newDuration=duration[props.id]/2
       } else {
@@ -24,17 +26,24 @@ const Tine = (props) => {
     console.log("new duration: " + newDuration)
     
     setRhythm(props.id, oldRhythm);
-    setDuration(index,newDuration)
+   // setDuration(index,newDuration)
   }
   const beat = (index) => {
     return (rhythm(props.id) || [])[index] || 0;
-  }  
+  }
   
   let tineStepList = [];
-  
-  for (let i=500; i>=0; i--){
+  let addDurationTheshold = 5;
+  for (let i=duration.length-1; i>=0; i--){
+    let tinestep;
+    if (i>duration.length-1-addDurationTheshold){
+      tinestep = <TineStep key={i} id={i} beat={[beat, setBeat]} duration={duration[i]} addSongLength={props.addSongLength}></TineStep>
+    } else {
+      tinestep = <TineStep key={i} id={i} beat={[beat, setBeat]} duration={duration[i]}></TineStep>
+    }
+
     tineStepList.push(
-      <TineStep key={i} id={i} beat={[beat, setBeat]} duration={duration[i]}>p</TineStep>
+      tinestep
     )
   }
 

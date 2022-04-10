@@ -36,7 +36,6 @@ const Kalimba = (props) => {
           return;
         }
         let notesThisTimestep=[];
-        console.log(map)
         for (let j=0; j<map.length-1;j++){
           if (map[j][i]){
             if (j<song.tines.length-1){
@@ -52,14 +51,20 @@ const Kalimba = (props) => {
       }
     } else {
       console.log("Mapping is null or empty");
-    } 
+    }
+    setSongPlaying(false);
   }
   const playNote = async(note) => {
     play(note);
   }
   const setRhythm = (index, newRhythm) => {
+    if (index=="duration"){
+      console.log("duration key was used with rhythm")
+      index = song.mapping.length-1;
+    }
     let tempMapping = song.mapping;
     tempMapping[index] = newRhythm;
+    console.log(tempMapping[index])
     setSong({
       ...song,
       mapping:[
@@ -77,6 +82,7 @@ const Kalimba = (props) => {
     newD[index]=newVal;
     setRhythm(song.mapping.length-1,newD);
   }
+  
   return(
     <>
       <KalimbaControlBar bpm={song.bpm*bpmSpeed} bpmSpeed={[bpmSpeed, setBpmSpeed]} song={[song, setSong]}
