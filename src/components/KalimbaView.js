@@ -1,32 +1,35 @@
 import Tine from "./Tine.js";
+import {useState} from "react";
+
 //The Component that holds The Kalimba itself. Should support scrolling through all the tinesteps
 const KalimbaView = (props) => {
   const tines = props.tines;
   const [duration, setDuration] = props.duration;
   const [rhythm, setRhythm] = props.rhythm;
+  const [shiftHeld, setShiftHeld] = useState(false)
+  const [startFrom, setStartFrom] = props.startFrom;
+  const tinesRef=props.tinesRef;
   let tinesList = []
-
-  const addSongLength = (ammount) => {
-    if (!ammount){
-      ammount=5;
+  const handleKeyDown = (data) =>{
+    if (data.key=="Shift"){
+      setShiftHeld(true)
     }
-    console.log("adding: " + ammount + " of beats to the song")
-    console.log(duration)
-    let newDuration = [...duration];
-    let newSize = duration.length + ammount
-    newDuration[newSize-1] =1;
-    newDuration.fill(1,duration.length-1, newSize-1);
-    console.log(newDuration)
-    setRhythm("duration", newDuration)
   }
-
+  const handleKeyUp = (data) =>{
+    if (data.key=="Shift"){
+      setShiftHeld(false)
+    }
+  }
+  document.addEventListener('keydown', handleKeyDown);
+  document.addEventListener('keyup', handleKeyUp);
   for (let i=0; i<tines.length; i++){
     let inverseIndex= tines.length-i
     let style = {
       paddingBottom:inverseIndex*10
     }
     let tine = <Tine id = {i} key={i} style={style} note = {tines[i]} playNote={props.playNote}
-      rhythm ={props.rhythm} duration = {props.duration} addSongLength={addSongLength}/>
+      rhythm ={props.rhythm} duration = {props.duration} currentStep = {props.currentStep}
+      startFrom = {[startFrom, setStartFrom]} shiftHeld={shiftHeld} />
     if (i%2==0){
       tinesList.push(tine);
     } else {
@@ -36,7 +39,7 @@ const KalimbaView = (props) => {
   
   return(
     <>
-      <div className="KalimbaView">
+      <div ref={tinesRef} className="KalimbaView">
         {tinesList}
       </div>
     </>

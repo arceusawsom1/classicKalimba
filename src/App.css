@@ -1,3 +1,13 @@
+@media only screen and (max-width: 800px){
+  *.hideOnMobile{
+    display:none !important; 
+  }
+}
+@media only screen and (min-width: 1200px){
+  *.hideOnDesktop{
+    display:none !important; 
+  }
+}
 html, body, #root {
   height:100%;
 }
@@ -13,6 +23,7 @@ body{
 display:flex;
 flex-flow:column;
 }
+
 #root>div:nth-child(2){
   flex: 1 0 auto;
   background-color:rgb(79, 79, 79);
@@ -25,10 +36,6 @@ flex-flow:column;
   background-color:green;
   flex: 0 0 auto;
 }
-.editSongDiv{
-  display: flex; /*this is for the page itself, (nesting flexes)*/
-  flex-flow:row;
-}
 .footer{
   height:40px;
   text-align:center;
@@ -39,21 +46,38 @@ flex-flow:column;
 .header h1{
   margin:0;
 }
+@media only screen and (min-width: 1300px) {
+  .editSongDiv{
+    display: flex; /*this is for the page itself, (nesting flexes)*/
+    flex-flow:row;
+  }
+  .songDetails, .kalimba{
+    flex: 1 0 auto;
+    width:40%;
+    height:90%;
+    margin:auto 20px;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.3);
+    border: 5px solid rgb(201, 198, 198);
+    
+    border-radius:10px;
+  }
+}
+@media only screen and (max-width: 1299px){
+  .songDetails, .kalimba{
+    margin: 0;
+    width:100%;
+    box-sizing: border-box;
+  }
+}
 
 .songDetails, .kalimba{
-  background-color:white;
-  border-radius:10px;
-  border: 5px solid rgb(201, 198, 198);
-  height:90%;
-  margin:auto 20px;
-  flex: 1 0 auto;
-  width:40%;
   padding:20px;
-  box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.3);
+  background-color:white;
 }
 .kalimbaControlBar{
   display:flex;
   flex-flow:row;
+  flex-wrap:wrap;
 }
 .kalimbaControlBar>*{
   border: 1px solid black;
@@ -79,6 +103,7 @@ flex-flow:column;
   height:700px;
   text-align:center;
   overflow:scroll;
+  position:relative;
  
 }
 .Tine{
@@ -120,4 +145,11 @@ flex-flow:column;
   height: 50%;
   width:50%;
   border-radius: 150px 0 0 0;
+}
+.playing{
+  background-color: yellow;
+  
+}
+.startFrom{
+  background-color:orange;
 }

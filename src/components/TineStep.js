@@ -1,12 +1,20 @@
+import SongContextMenu from "./songContextMenu.js";
 const TineStep = (props) => {
   const [beat, setBeat] = props.beat;
   const duration = props.duration;
-  const toggleSound = () => {
-    setBeat(props.id);
-    if (props.addSongLength){
-      console.log("trying to add length")
-      props.addSongLength();
+  const [startFrom, setStartFrom] = props.startFrom;
+  const toggleSound = (e) => {
+    console.log(e.button)
+    if (e.button==2){
+      e.preventDefault();
+      setStartFrom(props.id);
     }
+    if (e.button==1){
+      setBeat(props.id, props.addSongLength);
+    }
+  }
+  const playFromHere = () => {
+    console.log("playing from: " + props.id)
   }
   let noteLength;
   if (duration==1){
@@ -16,9 +24,15 @@ const TineStep = (props) => {
   } else if (duration==0.25){
     noteLength="quarter";
   }
+  let classList = "noteContainer ";
+  if (props.id==props.currentStep) {
+    classList+="playing "
+  } else if (props.id==startFrom){
+    classList+="startFrom "
+  }
   return(
-    <div className="noteContainer" onClick={toggleSound}>
-      <div className={`TineStep ${beat(props.id)?"note " + noteLength:""}`} ></div>
+    <div className={classList} onMouseDown={toggleSound}>
+      <div className={`TineStep ${beat(props.id)?"note " + noteLength:""} `} ></div>
     </div>
   )
 }

@@ -20,6 +20,8 @@ import VolumeDown from '@mui/icons-material/VolumeDown';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
+import TineSets from "../data/tineSets.js";
+
 const KalimbaControlBar = (props) =>{
   const [bpmSpeed, setBpmSpeed] = props.bpmSpeed;
   const [songPlaying, setSongPlaying] = props.songPlaying;
@@ -29,7 +31,7 @@ const KalimbaControlBar = (props) =>{
   const [showClearMappingDialog, setShowClearMappingDialog] = useState(false);
   const playSong = () => {
     console.log("Playing song")
-    setSongPlaying(true);
+    props.playSong(0);
   }
   const stopSong = () => {
     console.log("Stopping song")
@@ -71,6 +73,8 @@ const KalimbaControlBar = (props) =>{
         desc: json.desc,
         bpm: json.bpm,
         mapping: json.mapping,
+        tineSet: json.tineSet || 0,
+        tines: TineSets[json.tineSet || 0],
       })
     }
     fileReader.readAsText(fileToLoad, "UTF-8");
@@ -82,6 +86,7 @@ const KalimbaControlBar = (props) =>{
       desc: song.desc,
       bpm: song.bpm,
       mapping: song.mapping,
+      tineSet: song.tineSet,
     }
     return safeSong;
   }
@@ -178,7 +183,7 @@ const KalimbaControlBar = (props) =>{
         </label>
       </Tooltip>
       </div>
-      <div id="VolumeControl">
+      <div id="VolumeControl" className={"hideOnMobile"}>
         <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
           <VolumeDown />
           <Slider aria-label="Volume" value={volume} onChange={volumeHandleChange} />

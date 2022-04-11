@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
-import { FormControl, Button, TextField, TextArea, Divider, Rating } from '@mui/material';
+import { FormControl, Button, TextField, TextArea, Divider, Rating, InputLabel } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TineSets from "../data/tineSets.js";
+
 const EditSongMetaData = (props) => {
   const [song, setSong] = props.song;
   const [prevSong, setPrevSong] = useState(song);
   const [title, setTitle] = useState(song.title);
   const [desc, setDesc] = useState(song.desc);
   const [bpm, setBpm] = useState(song.bpm)
+  const [tineSet, setTineSet] = useState(song.tineSet);
   const [changesMade, setChangesMade] = useState(false);
+  
   
   const saveHandler=()=>{
     console.log("Saving Song (title:" +title + ", desc: " + desc + ")");
@@ -16,17 +22,22 @@ const EditSongMetaData = (props) => {
       title: title,
       desc: desc,
       bpm: bpm,
+      tineSet: tineSet,
+      tines: [
+        ...TineSets[tineSet]
+      ]
     })
   }
 
   useEffect(() => {
     setChangesMade(true);
-  },[title,desc,bpm])
+  },[title,desc,bpm,tineSet])
 
   useEffect(()=>{
     setTitle(song.title);
     setDesc(song.desc)
     setBpm(song.bpm)
+    setTineSet(song.tineSet)
     setPrevSong(song)
   },[song])
 
@@ -58,6 +69,18 @@ const EditSongMetaData = (props) => {
           sx={inputStyle}
           onChange={(e)=>{setBpm(e.target.value)}}
         />
+        <InputLabel id="dropDownTineSet-label">Scale</InputLabel>
+        <Select
+          labelId="dropDownTineSet-label"
+          id="dropDownTineSet"
+          value={tineSet}
+          label="Scale"
+          onChange={(e)=>{setTineSet(e.target.value)}}
+          sx={inputStyle}
+        >
+          <MenuItem value={0}>C Major</MenuItem>
+          <MenuItem value={1}>G Major</MenuItem>
+        </Select>
       </FormControl>
       <Divider />
       <p>Rating</p><Rating name="half-rating-read" defaultValue={song.rating} precision={0.5} readOnly />

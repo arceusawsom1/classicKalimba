@@ -14,7 +14,6 @@ const play = async (notesToPlay) =>{
   for (let note in notesToPlay){
     //instrument.play(notesToPlay[note]);
     let noteFile = notesToPlay[note].replace("#","s")
-    console.log("Name: " + noteFile)
     let sound = new Howl({
       src: [`/audio/${noteFile}.mp3`],
       volume:volume
