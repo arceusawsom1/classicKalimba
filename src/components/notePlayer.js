@@ -5,7 +5,7 @@ import { Howl } from "howler";
 let instrument = null;
 let volume=1;
 const setHowlerVolume = (newVolume) => {
-  volume= newVolume*0.01;
+  volume= newVolume*0.005; //was 0.01, but wanted to cull the max volume
 }
 const play = async (notesToPlay) =>{
   if (!Array.isArray(notesToPlay)){

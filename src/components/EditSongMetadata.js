@@ -3,6 +3,7 @@ import { FormControl, Button, TextField, TextArea, Divider, Rating, InputLabel }
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TineSets from "../data/tineSets.js";
+import { BASE_URL } from "../data/connection.js"
 
 const EditSongMetaData = (props) => {
   const [song, setSong] = props.song;
@@ -27,6 +28,41 @@ const EditSongMetaData = (props) => {
         ...TineSets[tineSet]
       ]
     })
+    let songDTO = {
+      title: title,
+      desc: desc,
+      bpm: bpm,
+      tineSet: tineSet,
+      mapping: song.mapping
+    }
+    if (song.id){
+      songDTO={
+        ...songDTO,
+        id: song.id,
+      }
+    } else {
+      localStorage.setItem("songcache",JSON.stringify(songDTO));
+    }
+    let bearer = localStorage.getItem("bearer")
+    if (bearer){
+      const requestOptions = {
+        method: 'POST',
+        headers: 
+        { 
+          'Content-Type': 'application/json',
+          'authorization': bearer
+        },
+        body: JSON.stringify(songDTO)
+      };
+    
+      let endpoint = BASE_URL + "/songs/save"
+      console.log("Endpoint: " + endpoint)
+  
+      fetch(endpoint, requestOptions)
+        //.then(response => response.json())
+        //.then(data => console.log(data));
+      console.log("Saved to server")
+    }
   }
 
   useEffect(() => {
@@ -84,7 +120,7 @@ const EditSongMetaData = (props) => {
       </FormControl>
       <Divider />
       <p>Rating</p><Rating name="half-rating-read" defaultValue={song.rating} precision={0.5} readOnly />
-      <p>Favourites</p><p>{song.favourites.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+      <p>Favourites</p><p>{/*song.favourites.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")*/"Some Number"}</p>
       <Button onClick={saveHandler} variant="contained" style = {{position:"absolute",bottom:"0px",right:"0px"}} disabled={!changesMade}>Save</Button>
     </div>
   )

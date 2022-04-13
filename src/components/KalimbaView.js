@@ -20,8 +20,12 @@ const KalimbaView = (props) => {
       setShiftHeld(false)
     }
   }
-  document.addEventListener('keydown', handleKeyDown);
-  document.addEventListener('keyup', handleKeyUp);
+  //Only need these props for people editing the song
+  if (props.editable){
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+  }
+  
   for (let i=0; i<tines.length; i++){
     let inverseIndex= tines.length-i
     let style = {
@@ -29,7 +33,7 @@ const KalimbaView = (props) => {
     }
     let tine = <Tine id = {i} key={i} style={style} note = {tines[i]} playNote={props.playNote}
       rhythm ={props.rhythm} duration = {props.duration} currentStep = {props.currentStep}
-      startFrom = {[startFrom, setStartFrom]} shiftHeld={shiftHeld} />
+      startFrom = {[startFrom, setStartFrom]} shiftHeld={shiftHeld} editable={props.editable}/>
     if (i%2==0){
       tinesList.push(tine);
     } else {

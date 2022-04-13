@@ -2,14 +2,65 @@ import Kalimba from "../components/Kalimba.js";
 import EditSongMetadata from "../components/EditSongMetadata.js";
 import {useEffect, useState} from "react";
 import TineSets from "../data/tineSets.js";
-import { Divider } from '@mui/material';
+import { CircularProgress, Divider } from '@mui/material';
+import {useLocation} from "react-router-dom";
+import { BASE_URL } from "../data/connection";
+import tineSets from "../data/tineSets";
+
+
 
 const EditSong = () => {
   const [song, setSong] = useState(null);
+  const search = useLocation().search;
+  const id = new URLSearchParams(search).get('id');
   useEffect(()=>{
-    newSong();
+    //If there is an ID in the URL, then pull it from the API
+    if (id){
+      console.log("ID: " + id)
+      const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      };
+    
+      let endpoint = BASE_URL + "/songs/findbyid?id=" + id
+      console.log("Endpoint: " + endpoint)
+  
+      fetch(endpoint, requestOptions)
+        .then(response => response.json())
+        .then(data => loadSong(data));
+    } else {
+      let prevSong = JSON.parse(localStorage.getItem("songcache"))
+      console.log(prevSong)
+      if (prevSong){
+        setSong(
+          {
+            ...prevSong,
+            tines: TineSets[prevSong.tineSet],
+          }
+        )
+      } else {
+        newSong();
+      }
+    }
+    
+    
    
   },[])
+
+  const loadSong = (data) => {
+    if ("error" in data){
+      console.log("error in response:")
+      console.log(data)
+      return;
+    }
+    console.log(data);
+    setSong(
+      {
+        ...data,
+        tines: tineSets[data.tineSet],
+      }
+    )
+  }
 
   const newSong = () => {
     let mapping = [];
@@ -39,8 +90,8 @@ const EditSong = () => {
 
   },[song])
 
-  let songDetails = <p>Loading</p>;
-  let kalimba = <p>Loading</p>;
+  let songDetails = <CircularProgress />
+  let kalimba = <CircularProgress />
   if (song){
     songDetails=(
       <div className="songDetails">
@@ -48,9 +99,7 @@ const EditSong = () => {
       </div>
     )
     kalimba = (
-      <div className="kalimba">
-        <Kalimba song={[song, setSong]}/>
-      </div>
+      <Kalimba song={[song, setSong]} editable/>
     )
   }
   

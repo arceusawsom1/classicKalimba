@@ -120,18 +120,17 @@ const Kalimba = (props) => {
     newD[index]=newVal;
     setRhythm(song.mapping.length-1,newD);
   }
-  
   return(
-    <>
+    <div className="kalimba">
       <h1 className={"hideOnDesktop"}>Song</h1>
       <KalimbaControlBar bpm={song.bpm*bpmSpeed} bpmSpeed={[bpmSpeed, setBpmSpeed]} song={[song, setSong]}
         songPlaying = {[songPlaying, setSongPlaying]} playSong={playSong} stopSong={stopSong} volume = {[volume, setVolume]}/>
       <KalimbaView tines = {song.tines} rhythm = {[rhythm, setRhythm]} playNote={playNote}
         duration={[duration, setDuration]} currentStep = {currentStep} tinesRef = {tinesRef}
-        startFrom = {[startFrom, setStartFrom]}/>
+        startFrom = {[startFrom, setStartFrom]} editable={props.editable}/>
       <input val={startFrom} onChange={(e)=>{setStartFrom(e.target.value)}}/>
       {!songPlaying && <button onClick={()=>{playSong(startFrom)}}>Play From</button> }
-    </>
+    </div>
   )
 }
 export default Kalimba;

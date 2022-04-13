@@ -9,8 +9,13 @@ const TineStep = (props) => {
       e.preventDefault();
       setStartFrom(props.id);
     }
-    if (e.button==1){
-      setBeat(props.id, props.addSongLength);
+    if (e.button==0){
+      if (props.editable){
+        setBeat(props.id, props.addSongLength);
+      } else {
+        console.log("You cant edit notes, you are not an editor (editable is false on tinestep)")
+      }
+      
     }
   }
   const playFromHere = () => {

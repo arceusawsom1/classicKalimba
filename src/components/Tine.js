@@ -51,7 +51,7 @@ const Tine = (props) => {
   for (let i=duration.length-1; i>=0; i--){
     let tinestep;
     tinestep = <TineStep key={i} id={i} beat={[beat, setBeat]} duration={duration[i]} currentStep={props.currentStep}
-    startFrom = {[startFrom, setStartFrom]} />
+    startFrom = {[startFrom, setStartFrom]}  editable={props.editable}/>
     tineStepList.push(
       tinestep
     )
