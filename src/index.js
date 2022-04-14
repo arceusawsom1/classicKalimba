@@ -1,6 +1,5 @@
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import App from "./App";
 import Header from "./partials/header.js";
 import Footer from "./partials/footer.js";
 import Home from "./pages/home.js";
@@ -14,6 +13,7 @@ import Logout from "./pages/logout.js";
 import UserView from "./pages/userView.js";
 import SongPlay from "./pages/songPlay.js";
 import MySongs from "./pages/mySongs.js";
+import './App.css';
 const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
