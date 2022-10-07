@@ -20,7 +20,6 @@ const Login = () => {
       body: JSON.stringify(data)
     };
   
-    console.log(data);
     let endpoint = BASE_URL + "/users/login"
     console.log("Endpoint: " + endpoint)
 
@@ -30,12 +29,13 @@ const Login = () => {
         if (bearer){
           localStorage.setItem("bearer",bearer)
           window.location.replace("/")
+        } else if (response.status==403){
+          setError(["Invalid username or password"])
         } else {
           setError(["Something went wrong"])
         }
         
-      })
-      .then(data => console.log(data));
+      });
   }
   let inputStyle={
     margin:"20px 0px"
@@ -45,6 +45,7 @@ const Login = () => {
       <TextField 
           label="username"
           value={username} 
+          autoComplete={"username"}
           onChange={(e) => setUsername(e.target.value)}
           sx={inputStyle}
         />
@@ -56,6 +57,7 @@ const Login = () => {
           label="Password"
           type="password"
           value={password} 
+          autoComplete={"current-password"}
           onChange={(e) => setPassword(e.target.value)}
           sx={inputStyle}
         />
@@ -65,12 +67,14 @@ const Login = () => {
   return(
     <div className="loginContainer">
       <div className="login">
-      <FormControl sx={{width:"100%"}}>
-          <ErrorBox errors={error} />
-          {usernameInput}
-          {passwordInput}
-          <Button variant="contained" onClick={handleSubmit}>Log in</Button>
-        </FormControl>
+        <form>
+          <FormControl sx={{width:"100%"}}>
+            <ErrorBox errors={error} />
+            {usernameInput}
+            {passwordInput}
+            <Button variant="contained" onClick={handleSubmit}>Log in</Button>
+          </FormControl>
+        </form>
       </div>
     </div>
   )

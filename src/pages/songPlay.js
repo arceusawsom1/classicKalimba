@@ -44,8 +44,17 @@ const SongPlay = (props) => {
   }
   return(
     <div className = "SongPlay">
+      
       {loading && <CircularProgress />}
-      {!loading && <Kalimba song={[song, setSong]}/>}
+      {!loading && 
+      <>
+        <meta
+          name="og:title"
+          content={"View '" + ((song || {title:""}).title) + "' - " + ((song || {user:{username:""}}).user.username)} 
+        />
+        <Kalimba song={[song, setSong]} />
+      </>
+      }
     </div>
     
   )

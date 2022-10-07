@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import SongSearchResult from "../components/songSearchResult";
 import { BASE_URL } from "../data/connection";
-import CircularProgress from '@mui/material/CircularProgress';
+import SimpleSongList from "../components/simpleSongList";
 
 const Songs = () => {
   const [songs, setSongs] = useState([]);
@@ -16,32 +15,13 @@ const Songs = () => {
 
     fetch(endpoint, requestOptions)
       .then(response => response.json())
-      .then(data => updateSongList(data));
+      .then(data => setSongs(data));
   },[])
 
-  const updateSongList = (data) => {
-    let songs=[];
-    for (let a in data){
-      let song = data[a]
-      songs.push(song);
-    }
-    setSongs(songs)
-  }
-
-  let songList=[];
-  for (let a=0; a<songs.length; a++){
-    let song=songs[a];
-    songList.push(
-      <>
-      <SongSearchResult song={song} key={a}/>
-      </>
-    )
-  }
   return(
     <div>
-      <h1>Songs Page</h1>
-      {songList.length>0 && songList}
-      {songList.length>0 || <CircularProgress size={"200px"} sx={{margin:"auto"}} />}
+      <h1>All Songs</h1>
+      <SimpleSongList songs={[songs, setSongs]}/>
     </div>
   )
 }

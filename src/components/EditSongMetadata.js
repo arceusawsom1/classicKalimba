@@ -36,15 +36,15 @@ const EditSongMetaData = (props) => {
       mapping: song.mapping
     }
     if (song.id){
+      console.log("The song has an ID, appending to DTO")
       songDTO={
         ...songDTO,
         id: song.id,
       }
-    } else {
-      localStorage.setItem("songcache",JSON.stringify(songDTO));
-    }
+    } 
     let bearer = localStorage.getItem("bearer")
     if (bearer){
+      console.log("Bearer found, attempting to upload to cloud")
       const requestOptions = {
         method: 'POST',
         headers: 
@@ -52,16 +52,27 @@ const EditSongMetaData = (props) => {
           'Content-Type': 'application/json',
           'authorization': bearer
         },
-        body: JSON.stringify(songDTO)
+        body: JSON.stringify(songDTO) 
       };
     
       let endpoint = BASE_URL + "/songs/save"
       console.log("Endpoint: " + endpoint)
   
       fetch(endpoint, requestOptions)
-        //.then(response => response.json())
-        //.then(data => console.log(data));
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          if (data.id && !song.id) {
+            console.log("We have just created a new song, deleting old song and redirecting")
+            localStorage.removeItem("songcache")
+            window.location.href += "?id=" + data.id
+          }
+        });
       console.log("Saved to server")
+    }
+    else {
+      console.log("no bearer found, uploading locally")
+      localStorage.setItem("songcache",JSON.stringify(songDTO));
     }
   }
 

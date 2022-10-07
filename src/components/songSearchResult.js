@@ -6,7 +6,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import { useState } from 'react';
 import { BASE_URL } from '../data/connection';
 const SongSearchResult = (props) => {
-  console.log(props)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   //the view for MySongs
   let song = props.song || {

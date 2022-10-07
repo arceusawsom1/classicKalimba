@@ -17,6 +17,7 @@ const Register = () => {
           label="Email"
           value={email} 
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete={"email"}
           sx={inputStyle}
         />
     </>
@@ -27,6 +28,7 @@ const Register = () => {
           label="Password"
           type="password"
           value={password} 
+          autoComplete={"current-password"}
           onChange={(e) => setPassword(e.target.value)}
           sx={inputStyle}
         />
@@ -38,6 +40,7 @@ const Register = () => {
           label="Confirm Password"
           type="password"
           value={confirmPassword} 
+          autoComplete={"current-password"}
           onChange={(e) => setConfirmPassword(e.target.value)}
           sx={inputStyle}
         />
@@ -48,6 +51,7 @@ const Register = () => {
       <TextField 
           label="username"
           value={username} 
+          autoComplete={"username"}
           onChange={(e) => setUsername(e.target.value)}
           sx={inputStyle}
         />
@@ -114,14 +118,16 @@ const Register = () => {
     <div className={"registerController"}>
       <div className={"register"}>
         <h1>Register</h1>
-        <FormControl sx={{width:"100%"}}>
-          <ErrorBox errors={error} />
-          {emailInput}
-          {usernameInput}
-          {passwordInput}
-          {confirmPasswordInput}
-          <Button variant="contained" onClick={validateAndSend}>Register</Button>
-        </FormControl>
+        <form>
+          <FormControl sx={{width:"100%"}}>
+            <ErrorBox errors={error} />
+            {emailInput}
+            {usernameInput}
+            {passwordInput}
+            {confirmPasswordInput}
+            <Button variant="contained" onClick={validateAndSend}>Register</Button>
+          </FormControl>
+        </form>
       </div>
       
     </div>

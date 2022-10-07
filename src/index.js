@@ -1,5 +1,6 @@
-import { render } from "react-dom";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ReactDOM from "react-dom/client";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./partials/header.js";
 import Footer from "./partials/footer.js";
 import Home from "./pages/home.js";
@@ -14,14 +15,16 @@ import UserView from "./pages/userView.js";
 import SongPlay from "./pages/songPlay.js";
 import MySongs from "./pages/mySongs.js";
 import './App.css';
-const rootElement = document.getElementById("root");
-render(
+import Featured from "./pages/featured.js";
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <BrowserRouter>
     <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="users" element={<Users />} />
         <Route path="songs" element={<Songs />} />
+        <Route path="featured" element={<Featured />} />
         <Route path="editSong" element={<EditSong />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
@@ -32,6 +35,5 @@ render(
         <Route path="*" element={<NotFound />} />
       </Routes>
     <Footer />
-  </BrowserRouter>,
-  rootElement
+  </BrowserRouter>
 );

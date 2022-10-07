@@ -33,6 +33,10 @@ const KalimbaControlBar = (props) =>{
     console.log("Playing song")
     props.playSong(0);
   }
+  const playSongFrom = () =>{
+    console.log("Playing the song from checkpoint");
+    props.playsong(props.startFrom);
+  }
   const stopSong = () => {
     console.log("Stopping song")
     props.stopSong();
@@ -127,7 +131,7 @@ const KalimbaControlBar = (props) =>{
     )
   } else {
     playButton = (
-      <Tooltip title="Song Allready Playing">
+      <Tooltip title="Song already playing...">
         <IconButton variant="contained" color="success" onClick={playSong}>
           <CircularProgress />
         </IconButton>

@@ -124,11 +124,11 @@ const Kalimba = (props) => {
     <div className="kalimba">
       <h1 className={"hideOnDesktop"}>Song</h1>
       <KalimbaControlBar bpm={song.bpm*bpmSpeed} bpmSpeed={[bpmSpeed, setBpmSpeed]} song={[song, setSong]}
-        songPlaying = {[songPlaying, setSongPlaying]} playSong={playSong} stopSong={stopSong} volume = {[volume, setVolume]}/>
+        songPlaying = {[songPlaying, setSongPlaying]} playSong={playSong} stopSong={stopSong} volume = {[volume, setVolume]}
+        startFrom={[startFrom, setStartFrom]}/>
       <KalimbaView tines = {song.tines} rhythm = {[rhythm, setRhythm]} playNote={playNote}
         duration={[duration, setDuration]} currentStep = {currentStep} tinesRef = {tinesRef}
         startFrom = {[startFrom, setStartFrom]} editable={props.editable}/>
-      <input val={startFrom} onChange={(e)=>{setStartFrom(e.target.value)}}/>
       {!songPlaying && <button onClick={()=>{playSong(startFrom)}}>Play From</button> }
     </div>
   )
