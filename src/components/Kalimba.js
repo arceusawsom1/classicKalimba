@@ -74,7 +74,7 @@ const Kalimba = (props) => {
         let notesThisTimestep=[];
         for (let j=0; j<map.length-1;j++){
           if (map[j][i]){
-            if (j<song.tines.length-1){
+            if (j<song.tines.length){
               let sound = song.tines[j]
               notesThisTimestep.push(sound.note + (sound.accidental || "") + sound.octave)
             } else{
